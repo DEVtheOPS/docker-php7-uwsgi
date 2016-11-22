@@ -1,4 +1,5 @@
 FROM ubuntu:16.04
+MAINTAINER Marc Seiler <info@devtheops.com>
 
 WORKDIR /var/www/src
 
