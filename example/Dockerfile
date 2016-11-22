@@ -1,2 +1,2 @@
 FROM digitalfiz/php7-uwsgi
-ADD index.php /var/www/src/public/index.php
+ADD index.php /var/www/public/index.php
