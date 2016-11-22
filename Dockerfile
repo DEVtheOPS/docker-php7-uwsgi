@@ -19,7 +19,7 @@ RUN apt-get autoremove && \
     rm -rf /usr/share/locale/
 
 COPY uwsgi.conf /etc/uwsgi.conf
-COPY scripts/run.sh /usr/bin/run.sh
+COPY run.sh /usr/bin/run.sh
 
 EXPOSE 8080
 
