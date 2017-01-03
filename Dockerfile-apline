@@ -1,0 +1,26 @@
+FROM alpine
+MAINTAINER Marc Seiler <info@devtheops.com>
+
+# Setup
+RUN apk --update add curl bash git python python-dev alpine-sdk linux-headers libpng-dev gd-dev libxml2-dev
+
+WORKDIR /var/build
+RUN curl -L http://docs.php.net/distributions/php-7.1.0.tar.gz | tar -zxv
+RUN cd php-7.1.0 && ./configure --prefix=/usr/local --with-mysqli --with-pdo-mysql --with-gd --enable-mbstring --enable-embed && make && make install
+
+
+RUN curl -L https://projects.unbit.it/downloads/uwsgi-2.0.14.tar.gz | tar -zxv
+RUN cd uwsgi-2.0.14 && UWSGICONFIG_PHPPATH=/usr/local/bin/php-config python uwsgiconfig.py --plugin plugins/php && make && make install
+
+# Install Composer
+RUN curl https://getcomposer.org/composer.phar -o /usr/local/bin/composer && \
+    chmod +x /usr/local/bin/composer
+
+COPY uwsgi.conf /etc/uwsgi.conf
+COPY run.sh /usr/bin/run.sh
+
+WORKDIR /var/www/src
+
+EXPOSE 8080
+
+CMD ["/usr/bin/run.sh"]
