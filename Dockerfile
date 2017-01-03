@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 MAINTAINER Marc Seiler <info@devtheops.com>
 
-WORKDIR /var/www/src
+WORKDIR /var/www
 
 # Setup
 RUN apt-get update && apt-get install -y curl git php7.0-cli uwsgi-plugin-php php7.0-zip php7.0-curl
